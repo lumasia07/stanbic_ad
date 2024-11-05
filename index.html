@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stanbic Rich Media Creative Media</title>
+  <style>
+    /* Basic styling for the slideshow */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .slideshow-container {
+      position: relative;
+      max-width: 25%;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 5px solid transparent;
+      animation: border-glow 5s linear infinite;
+    }
+
+    .slide {
+      display: none;
+      position: relative;
+      text-align: center;
+      animation: rotate-and-fade 1s ease;
+      transform-origin: top left; 
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.5s ease;
+    }
+
+    .slide.active img {
+      transform: scale(1.05);
+    }
+
+    @keyframes rotate-and-fade {
+      from { opacity: 0; transform: scale(1.02) rotate(300deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes border-glow {
+      0% {
+        border-color: #ff0000;
+      }
+      16.67% {
+        border-color: #ffff00;
+      }
+      33.33% {
+        border-color: #00ff00;
+      }
+      50% {
+        border-color: #00ffff;
+      }
+      66.67% {
+        border-color: #0000ff;
+      }
+      83.33% {
+        border-color: #ff00ff;
+      }
+      100% {
+        border-color: #ff0000;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slideshow-container">
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <img src="./Templates/blue_lady.jpg" alt="Slide 1">
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <img src="./Templates/business_class.jpg" alt="Slide 2">
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <img src="./Templates/business_man.jpg" alt="Slide 3">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/business_woman.jpg" alt="Slide 4">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/bussines_men.jpg" alt="Slide 5">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/corporate_lady.jpg" alt="Slide 6">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/family.jpg" alt="Slide 7">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/family_out.jpg" alt="Slide 8">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/office_lady.jpg" alt="Slide 9">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/office_man.jpg" alt="Slide 10">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/old_money.jpg" alt="Slide 11">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/relaxed_businessman.jpg" alt="Slide 12">
+    </div>
+
+    <div class="slide">
+      <img src="./Templates/retirement.jpg" alt="Slide 13">
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+      // Hide current slide
+      slides[currentSlide].classList.remove('active');
+
+      // Update current slide index
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function changeSlide(direction) {
+      showSlide(currentSlide + direction);
+    }
+
+    // Set initial slide
+    showSlide(currentSlide);
+
+    // Automatic slideshow
+    setInterval(() => {
+      changeSlide(1);
+    }, 2500); // Change every 2.5 seconds
+  </script>
+
+</body>
+</html>
