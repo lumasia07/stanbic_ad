@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stanbic Rich Media Creative Media</title>
   <style>
-    /* Basic styling for the slideshow */
     body {
       display: flex;
       align-items: center;
@@ -18,13 +17,26 @@
 
     .slideshow-container {
       position: relative;
-      max-width: 25%;
+      max-width: 27%;
+      background-color: border-glow .5s linear infinte;
       margin: auto;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
       border-radius: 10px;
       overflow: hidden;
-      border: 5px solid transparent;
-      animation: border-glow 5s linear infinite;
+      border: 3px solid transparent;
+      animation: border-glow 5s linear infinite, pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
     }
 
     .slide {
@@ -32,7 +44,11 @@
       position: relative;
       text-align: center;
       animation: rotate-and-fade 1s ease;
-      transform-origin: top left; 
+      transform-origin: top left;
+    }
+
+    .slide:hover {
+      cursor: pointer;
     }
 
     .slide.active {
@@ -50,7 +66,7 @@
     }
 
     @keyframes rotate-and-fade {
-      from { opacity: 0; transform: scale(1.02) rotate(300deg); }
+      from { opacity: 0; transform: scale(1.12) rotate(300deg); }
       to { opacity: 1; transform: scale(1) rotate(0); }
     }
 
@@ -82,17 +98,14 @@
 <body>
 
   <div class="slideshow-container">
-    <!-- Slide 1 -->
     <div class="slide active">
       <img src="./Templates/blue_lady.jpg" alt="Slide 1">
     </div>
 
-    <!-- Slide 2 -->
     <div class="slide">
       <img src="./Templates/business_class.jpg" alt="Slide 2">
     </div>
 
-    <!-- Slide 3 -->
     <div class="slide">
       <img src="./Templates/business_man.jpg" alt="Slide 3">
     </div>
@@ -143,10 +156,8 @@
     const slides = document.querySelectorAll('.slide');
 
     function showSlide(index) {
-      // Hide current slide
       slides[currentSlide].classList.remove('active');
 
-      // Update current slide index
       currentSlide = (index + slides.length) % slides.length;
       slides[currentSlide].classList.add('active');
     }
@@ -155,13 +166,11 @@
       showSlide(currentSlide + direction);
     }
 
-    // Set initial slide
     showSlide(currentSlide);
 
-    // Automatic slideshow
     setInterval(() => {
       changeSlide(1);
-    }, 2500); // Change every 2.5 seconds
+    }, 3200);
   </script>
 
 </body>
