@@ -6,79 +6,113 @@
   <title>Stanbic Rich Media Creative Media</title>
   <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
   <style>
+    /* Base styling */
     body {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100vh;
-      margin: 2;
+      margin: 0;
       font-family: Arial, sans-serif;
       overflow: hidden;
       background-color: #f0f0f0;
     }
 
+    /* Slideshow container */
     .slideshow-container {
       position: relative;
       width: 160px;
       height: 600px;
       background-color: #ffffff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
       overflow: hidden;
-      border: 3px solid transparent;
-      animation: border-glow 5s linear infinite, pulse 3s ease-in-out infinite;
+      border: 4px solid transparent;
+      animation: border-glow 6s linear infinite, pulse 3s ease-in-out infinite;
     }
 
+    /* Pulse animation */
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
 
+    /* Slide styling */
     .slide {
       display: none;
       position: absolute;
-      width: 160px;
-      height: 600px;
+      width: 100%;
+      height: 100%;
       animation: rotate-and-fade 1s ease;
-      transform-origin: top left;
+      transform-origin: center;
     }
 
+    /* Active slide styling */
     .slide.active {
       display: block;
     }
 
     .slide img {
-      width: 160px;
-      height: 600px;
+      width: 100%;
+      height: 100%;
       object-fit: fill;
+      border-radius: 12px;
       transition: transform 0.5s ease;
-      border-radius: 10px;
     }
 
     .slide.active img {
       transform: scale(1.05);
     }
 
+    /* Animation for slide transition */
     @keyframes rotate-and-fade {
-      from { opacity: 0; transform: scale(1.12) rotate(300deg); }
+      from { opacity: 0; transform: scale(1.1) rotate(10deg); }
       to { opacity: 1; transform: scale(1) rotate(0); }
     }
 
+    /* Border glow effect */
     @keyframes border-glow {
       0% { border-color: #ff0000; }
-      16.67% { border-color: #ffff00; }
-      33.33% { border-color: #00ff00; }
-      50% { border-color: #00ffff; }
-      66.67% { border-color: #0000ff; }
-      83.33% { border-color: #ff00ff; }
-      100% { border-color: #ff0000; }
+      25% { border-color: #ffff00; }
+      50% { border-color: #00ff00; }
+      75% { border-color: #00ffff; }
+      100% { border-color: #ff00ff; }
+    }
+
+    /* Cursor icon styling */
+    .cursor-icon {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      background-color: #00ffff;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: ripple 1s infinite linear;
+    }
+
+    .cursor-icon svg {
+      width: 20px;
+      height: 20px;
+      color: darkblue;
+    }
+
+    /* Ripple animation */
+    @keyframes ripple {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2.5); opacity: 0; }
     }
   </style>
 </head>
 <body>
   <div class="slideshow-container">
+    <!-- Slide images -->
     <div class="slide active">
       <img src="./Templates/blue_lady.jpg" alt="Slide 1">
     </div>
@@ -95,28 +129,34 @@
       <img src="./Templates/bussines_men.jpg" alt="Slide 5">
     </div>
     <div class="slide">
-      <img src="./Templates/corporate_lady.jpg" alt="Slide 6">
-    </div>
-    <div class="slide">
-      <img src="./Templates/family.jpg" alt="Slide 7">
-    </div>
-    <div class="slide">
-      <img src="./Templates/family_out.jpg" alt="Slide 8">
-    </div>
-    <div class="slide">
-      <img src="./Templates/office_lady.jpg" alt="Slide 9">
-    </div>
-    <div class="slide">
-      <img src="./Templates/office_man.jpg" alt="Slide 10">
-    </div>
-    <div class="slide">
-      <img src="./Templates/old_money.jpg" alt="Slide 11">
-    </div>
-    <div class="slide">
-      <img src="./Templates/relaxed_businessman.jpg" alt="Slide 12">
-    </div>
-    <div class="slide">
-      <img src="./Templates/retirement.jpg" alt="Slide 13">
+        <img src="./Templates/corporate_lady.jpg" alt="Slide 6">
+      </div>
+      <div class="slide">
+        <img src="./Templates/family.jpg" alt="Slide 7">
+      </div>
+      <div class="slide">
+        <img src="./Templates/family_out.jpg" alt="Slide 8">
+      </div>
+      <div class="slide">
+        <img src="./Templates/office_lady.jpg" alt="Slide 9">
+      </div>
+      <div class="slide">
+        <img src="./Templates/office_man.jpg" alt="Slide 10">
+      </div>
+      <div class="slide">
+        <img src="./Templates/old_money.jpg" alt="Slide 11">
+      </div>
+      <div class="slide">
+        <img src="./Templates/relaxed_businessman.jpg" alt="Slide 12">
+      </div>
+      <div class="slide">
+        <img src="./Templates/retirement.jpg" alt="Slide 13">
+      </div>
+    <!-- Cursor icon with ripple effect -->
+    <div class="cursor-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="blue" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21v-2a4 4 0 0 0-4-4h-1a1 1 0 0 1-1-1V9a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v9l-2.4-3.2A2 2 0 0 0 6 14h-.434C4.701 14 4 14.701 4 15.566v0c0 .284.077.563.223.806L7 21m5-17V3m6 7h1M5 10h1m1.343-4.657l-.707-.707m10.021.707l.707-.707"/>
+      </svg>
     </div>
   </div>
 
@@ -124,46 +164,40 @@
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
 
+    // Function to display the current slide
     function showSlide(index) {
       slides[currentSlide].classList.remove('active');
       currentSlide = (index + slides.length) % slides.length;
       slides[currentSlide].classList.add('active');
     }
 
-    function changeSlide(direction) {
-      showSlide(currentSlide + direction);
-    }
-
-    showSlide(currentSlide);
-
+    // Automatic slideshow interval
     setInterval(() => {
-      changeSlide(1);
-    }, 3200);
+      showSlide(currentSlide + 1);
+    }, 3000);
 
-    // Confetti configuration
-    const defaults = { 
+    // Confetti settings
+    const confettiDefaults = { 
       startVelocity: 15, 
       spread: 180,
-      ticks: 30,
-      zIndex: 1
+      ticks: 50,
+      zIndex: 0
     };
 
     function randomInRange(min, max) {
       return Math.random() * (max - min) + min;
     }
 
-    // Function to create confetti burst
+    // Function to create a confetti burst
     function createConfetti() {
-      confetti(
-        Object.assign({}, defaults, {
-          particleCount: 5, // Reduced particle count for each burst
-          origin: { x: randomInRange(0.2, 0.8), y: 0.5 } // Confine within slide
-        })
-      );
+      confetti(Object.assign({}, confettiDefaults, {
+        particleCount: 10,
+        origin: { x: randomInRange(0.1, 0.9), y: randomInRange(0.3, 0.7) }
+      }));
     }
 
-    // Trigger confetti at a lower frequency
-    setInterval(createConfetti, 1000);
+    // Trigger confetti periodically
+    setInterval(createConfetti, 2000);
   </script>
 </body>
 </html>
