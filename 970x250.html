@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stanbic Rich Media Creative Media</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100vh;
+      margin: 2;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 970px;
+      height: 250px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 3px solid transparent;
+      animation: border-glow 5s linear infinite, pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .slide {
+      display: none;
+      position: absolute;
+      width: 970px;
+      height: 250px;
+      animation: rotate-and-fade 1s ease;
+      transform-origin: top left;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide img {
+      width: 970px;
+      height: 250px;
+      object-fit: fill;
+      transition: transform 0.5s ease;
+      border-radius: 10px;
+    }
+
+    .slide.active img {
+      transform: scale(1.05);
+    }
+
+    @keyframes rotate-and-fade {
+      from { opacity: 0; transform: scale(1.12) rotate(300deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes border-glow {
+      0% { border-color: #ff0000; }
+      16.67% { border-color: #ffff00; }
+      33.33% { border-color: #00ff00; }
+      50% { border-color: #00ffff; }
+      66.67% { border-color: #0000ff; }
+      83.33% { border-color: #ff00ff; }
+      100% { border-color: #ff0000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow-container">
+    <div class="slide active">
+      <img src="./Templates/blue_lady.jpg" alt="Slide 1">
+    </div>
+    <div class="slide">
+      <img src="./Templates/business_class.jpg" alt="Slide 2">
+    </div>
+    <div class="slide">
+      <img src="./Templates/business_man.jpg" alt="Slide 3">
+    </div>
+    <div class="slide">
+      <img src="./Templates/business_woman.jpg" alt="Slide 4">
+    </div>
+    <div class="slide">
+      <img src="./Templates/bussines_men.jpg" alt="Slide 5">
+    </div>
+    <div class="slide">
+      <img src="./Templates/corporate_lady.jpg" alt="Slide 6">
+    </div>
+    <div class="slide">
+      <img src="./Templates/family.jpg" alt="Slide 7">
+    </div>
+    <div class="slide">
+      <img src="./Templates/family_out.jpg" alt="Slide 8">
+    </div>
+    <div class="slide">
+      <img src="./Templates/office_lady.jpg" alt="Slide 9">
+    </div>
+    <div class="slide">
+      <img src="./Templates/office_man.jpg" alt="Slide 10">
+    </div>
+    <div class="slide">
+      <img src="./Templates/old_money.jpg" alt="Slide 11">
+    </div>
+    <div class="slide">
+      <img src="./Templates/relaxed_businessman.jpg" alt="Slide 12">
+    </div>
+    <div class="slide">
+      <img src="./Templates/retirement.jpg" alt="Slide 13">
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function changeSlide(direction) {
+      showSlide(currentSlide + direction);
+    }
+
+    showSlide(currentSlide);
+
+    setInterval(() => {
+      changeSlide(1);
+    }, 3200);
+
+    // Confetti configuration
+    // Confetti configuration
+    const defaults = { 
+      startVelocity: 15, 
+      spread: 180,
+      ticks: 30,
+      zIndex: 1
+    };
+
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // Function to create confetti burst
+    function createConfetti() {
+      confetti(
+        Object.assign({}, defaults, {
+          particleCount: 5, // Reduced particle count for each burst
+          origin: { x: randomInRange(0.2, 0.8), y: 0.5 } // Confine within slide
+        })
+      );
+    }
+
+    // Trigger confetti at a lower frequency
+    setInterval(createConfetti, 1000);
+  </script>
+</body>
+</html>
