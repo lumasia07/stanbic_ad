@@ -373,39 +373,41 @@
         setInterval(changeText, 4000); // Adjust this interval if needed
 
         // Function to swap background image
-        let lastBackgroundChange = Date.now(); // To track the time of the last background change
-const container = document.getElementById('container');
+        const preloadImages = (images) => {
+    images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+    });
+};
 
 const backgroundImages = [
-    'url("JPEG/ladyblue.webp")',
-    'url("JPEG/Aeroplane.webp")',
-    'url("JPEG/family.webp")',
-    'url("JPEG/mortagage.webp")',
-    'url("JPEG/Office.webp")',
-    'url("JPEG/offshore.webp")',
-    'url("JPEG/oldmoney.webp")',
-    'url("JPEG/Onthemove2.webp")',
-    'url("JPEG/Onthemove3.webp")',
-    'url("JPEG/private.webp")',
-    'url("JPEG/RM_Female.webp")',
-    'url("JPEG/RM.webp")',
-    'url("JPEG/shopping.webp")'
+    'JPEG/ladyblue.webp',
+    'JPEG/Aeroplane.webp',
+    'JPEG/family.webp',
+    'JPEG/mortagage.webp',
+    'JPEG/Office.webp',
+    'JPEG/offshore.webp',
+    'JPEG/oldmoney.webp',
+    'JPEG/Onthemove2.webp',
+    'JPEG/Onthemove3.webp',
+    'JPEG/private.webp',
+    'JPEG/RM_Female.webp',
+    'JPEG/RM.webp',
+    'JPEG/shopping.webp'
 ];
 
+// Preload the images
+preloadImages(backgroundImages);
+
+// Function to swap background image
 function swapBackgroundImage() {
-    // Swap every 4 seconds (4000ms)
-    if (Date.now() - lastBackgroundChange >= 4000) {
-        const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-        container.style.backgroundImage = backgroundImages[randomIndex];
-        lastBackgroundChange = Date.now(); // Update the timestamp
-    }
-
-    requestAnimationFrame(swapBackgroundImage); // Keep calling this function
+    const container = document.getElementById('container');
+    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+    container.style.backgroundImage = `url(${backgroundImages[randomIndex]})`;
 }
-
-// Initial call to start the loop
-requestAnimationFrame(swapBackgroundImage);
-
+needed
+// Change background image every 10 seconds
+setInterval(swapBackgroundImage, 10000);  // Adjust this interval if 
 
     </script>
 </body>
