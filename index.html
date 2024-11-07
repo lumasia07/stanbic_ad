@@ -355,72 +355,59 @@
     </main>
 
     <script>
-        // List of image URLs to preload
-        const backgroundImages = [
-            'JPEG/ladyblue.webp',
-            'JPEG/Aeroplane.webp',
-            'JPEG/family.webp',
-            'JPEG/mortagage.webp',
-            'JPEG/Office.webp',
-            'JPEG/offshore.webp',
-            'JPEG/oldmoney.webp',
-            'JPEG/Onthemove2.webp',
-            'JPEG/Onthemove3.webp',
-            'JPEG/private.webp',
-            'JPEG/RM_Female.webp',
-            'JPEG/RM.webp',
-            'JPEG/shopping.webp'
-        ];
+        const highlightTextElement = document.querySelector('.highlight-typing');
+        const textArray = ["IT'S INVESTING WISELY", "IT'S BANKING EASILY", "IT'S PLANNING WISELY"];
+        let currentTextIndex = 0;
 
-        // Function to preload images and track the order in which they load
-        function preloadImages(images) {
-            let loadedImages = 0;
-            let imagesToLoad = images.length;
+        function changeText() {
+            highlightTextElement.textContent = textArray[currentTextIndex];
+            currentTextIndex = (currentTextIndex + 1) % textArray.length;
 
-            // Array to store the loaded images in the order they finish loading
-            let imageQueue = [];
-
-            images.forEach((src) => {
-                const img = new Image();
-                img.src = src;
-
-                // When image finishes loading, add it to the queue and check if all images are loaded
-                img.onload = () => {
-                    imageQueue.push(src);
-                    loadedImages++;
-
-                    // If all images are loaded, start displaying the images
-                    if (loadedImages === imagesToLoad) {
-                        displayImages(imageQueue);
-                    }
-                };
-
-                // Optionally handle errors
-                img.onerror = () => {
-                    console.error(`Failed to load image: ${src}`);
-                    loadedImages++;
-                };
-            });
+            // Restart the animation
+            highlightTextElement.style.animation = 'none'; // Remove animation
+            highlightTextElement.offsetHeight; // Trigger reflow to restart animation
+            highlightTextElement.style.animation = ''; // Reapply animation
         }
 
-        // Function to display images in the order they loaded
-        function displayImages(loadedImages) {
-            const container = document.getElementById('container');
-            let currentIndex = 0;
+        // Change text every 12 seconds (after the typing and deleting cycle completes)
+        setInterval(changeText, 4000); // Adjust this interval if needed
 
-            // Set the first image as the initial background
-            container.style.backgroundImage = `url(${loadedImages[currentIndex]})`;
+        // Function to swap background image
+        const preloadImages = (images) => {
+    images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+    });
+};
 
-            // Change background every 10 seconds (or adjust as necessary)
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % loadedImages.length;
-                container.style.backgroundImage = `url(${loadedImages[currentIndex]})`;
-            }, 10000); // Change every 10 seconds, adjust interval as needed
-        }
+const backgroundImages = [
+    'JPEG/ladyblue.webp',
+    'JPEG/Aeroplane.webp',
+    'JPEG/family.webp',
+    'JPEG/mortagage.webp',
+    'JPEG/Office.webp',
+    'JPEG/offshore.webp',
+    'JPEG/oldmoney.webp',
+    'JPEG/Onthemove2.webp',
+    'JPEG/Onthemove3.webp',
+    'JPEG/private.webp',
+    'JPEG/RM_Female.webp',
+    'JPEG/RM.webp',
+    'JPEG/shopping.webp'
+];
 
-        // Preload the images
-        preloadImages(backgroundImages);
+// Preload the images
+preloadImages(backgroundImages);
+
+// Function to swap background image
+function swapBackgroundImage() {
+    const container = document.getElementById('container');
+    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+    container.style.backgroundImage = `url(${backgroundImages[randomIndex]})`;
+}
+// Change background image every 10 seconds
+setInterval(swapBackgroundImage, 10000);  // Adjust this interval if 
+
     </script>
-        
 </body>
 </html>
