@@ -6,19 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stanbic Rich Media Creatives</title>
     
-    <!-- Inline CSS styles -->
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="JPEG/logo.png">
+    <link rel="preload" as="image" href="JPEG/ladyblue.webp" fetchpriority="high">
+    
     <style>
-        /* Basic Reset */
+        /* Previous styles remain the same until middle-text */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
-        /* Body Styling */
         body {
             font-family: Arial, sans-serif;
-            color: #ffffff;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,16 +28,15 @@
             margin: 0;
         }
 
-        /* Main Container for 300x250 ad */
         .main {
             width: 300px; 
             height: 250px; 
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            will-change: transform;
         }
 
-        /* Inner Content Container */
         .container {
             width: 100%;
             height: 100%;
@@ -48,24 +49,26 @@
             background-position: center;
             background-repeat: no-repeat;
             transition: background-image 0.5s ease-in-out;
+            will-change: background-image;
         }
 
-        /* Logo Styling - background removed */
         .logo {
-            position: absolute;
             top: 10px;
-            left: 10px;
+            left: 3px;
+            position: absolute;
+            transform: translate(10px, 10px);
             padding: 5px 10px;
             border-radius: 5px;
+            animation: rotateLogoWithPause 12s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: transform;
         }
 
         .logo img {
             width: 120px;
             height: auto;
-            background-color: transparent; /* Transparent background */
+            transform: translateZ(0);
         }
 
-        /* Top-Right Text Styling - smaller font size */
         .top-right-text {
             position: absolute;
             top: 10px;
@@ -75,18 +78,47 @@
             font-weight: bold;
         }
 
-        /* Middle-Left Text Styling - responsive font size */
+        /* Updated middle-text styles */
         .middle-text {
             position: absolute;
             top: 30%;
             left: 10px;
-            color: #ffffff;
-            font-size: 12px; /* Fixed font size for small ad space */
+            font-size: 12px;
             font-weight: bold;
             line-height: 1.2;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
+        .static-text {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 9px;
+        }
+
+        .typing-text {
+            color: #0066cc;
+            display: block;
+            overflow: hidden;
+            border-right: 2px solid #0066cc;
+            white-space: nowrap;
+            animation: typing 3s steps(30, end),
+                       blink-caret 0.75s step-end infinite;
+            margin: 0;
+        }
+
+        /* Typing animation */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #0066cc }
+        }
+
+        /* Rest of the previous styles */
         .redirect {
             position: absolute;
             bottom: 24px;
@@ -98,48 +130,16 @@
             font-weight: bold;
             color: white;
             text-align: center;
-            animation: elastic-effect 2s cubic-bezier(0.1, 0.2, 0.2, 0.3) backwards; /* Elastic animation */
+            animation: elastic-effect 2s cubic-bezier(0.1, 0.2, 0.2, 0.3) backwards;
+            will-change: transform;
         }
 
-        /* Bottom-Left Text Styling */
         .bottom-text {
             position: absolute;
             bottom: 10px;
             left: 10px;
-            color: #cccccc;
+            color: #ccc;
             font-size: 7px;
-        }
-
-        /* Bottom-Right Image Styling - background removed */
-        .bottom-right-image {
-            position: absolute;
-            bottom: 10px;
-            right: 5px;
-            width: 80px;
-            height: auto;
-            border-radius: 5px;
-            background-color: transparent; /* Transparent background */
-        }
-
-        /* Typing effect styles */
-        .typing-effect {
-            display: inline-block;
-            overflow: hidden;
-            font-size: 9px;
-            white-space: text-wrap;
-            border-right: .15em solid orange;
-            width: 0;
-            animation: typing 6s steps(80) 1s 1 normal both, blink-caret 0.75s step-end infinite;
-        }
-
-        .highlight-typing {
-            font-size: 16px;
-            color: #007aff; /* Blue color for the "JOYFULLY" part */
-            display: block;
-            overflow: hidden;
-            white-space: pre-wrap;
-            width: 0;
-            animation: typing 4s steps(80) 1s 1 normal both, highlight-caret 0.2s step-end infinite;
         }
 
         .bottom-right-image {
@@ -149,265 +149,178 @@
             width: 50px;
             height: 60px;
             object-fit: contain;
-            opacity: 0; /* Initially hidden */
+            opacity: 0;
             animation: fadeInUp 3s ease-out 1s forwards, bounceIn 2s ease-out 4s forwards infinite;
+            will-change: transform, opacity;
+            transform: translateZ(0);
         }
 
-        /* Fade-in and up animation */
+        /* Previous animations remain the same */
         @keyframes fadeInUp {
             0% {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translate3d(0, 50px, 0);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate3d(0, 0, 0);
             }
         }
 
-        /* Bounce-in animation */
         @keyframes bounceIn {
-            0% {
-                transform: translateY(50px);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-            75% {
-                transform: translateY(5px);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }     
-
-        @keyframes typing {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -15px, 0); }
+            75% { transform: translate3d(0, 5px, 0); }
         }
 
-        @keyframes blink-caret {
-            50% {
-                border-color: transparent;
-            }
-        }
-
-        @keyframes highlight-caret {
-            50% {
-                border-color: transparent;
-            }
-        }
-
-        /* Add this new animation to the redirect div */
         @keyframes elastic-effect {
-            0% {
-                transform: scale(0.5) translateY(30px); /* Start small and low */
-                opacity: 0;
-            }
-            30% {
-                transform: scale(1.2) translateY(-15px); /* Scale up and move slightly up */
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(0.9) translateY(5px); /* Shrink slightly and move up */
-            }
-            70% {
-                transform: scale(1.05) translateY(-2px); /* Bounce slightly */
-            }
-            100% {
-                transform: scale(1) translateY(0); /* Settle at normal size and position */
-                opacity: 1;
-            }
+            0% { transform: scale3d(0.5, 0.5, 1) translateY(30px); opacity: 0; }
+            30% { transform: scale3d(1.2, 1.2, 1) translateY(-15px); opacity: 0.7; }
+            50% { transform: scale3d(0.9, 0.9, 1) translateY(5px); }
+            70% { transform: scale3d(1.05, 1.05, 1) translateY(-2px); }
+            100% { transform: scale3d(1, 1, 1) translateY(0); opacity: 1; }
         }
 
-        /* Keyframes for continuous, smooth logo rotation with focus pause */
-        @keyframes rotateLogo {
-            0% {
-                transform: rotate(0deg);
-            }
-            25% {
-                transform: rotate(90deg);
-            }
-            50% {
-                transform: rotate(180deg);
-            }
-            75% {
-                transform: rotate(270deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Smooth transition for the logo with an easing effect */
         @keyframes rotateLogoWithPause {
-            0% {
-                transform: rotate(0deg);
-            }
-            40% {
-                transform: rotate(0deg); /* Paused position for focus */
-            }
-            60% {
-                transform: rotate(180deg); /* Pause ends, halfway */
-            }
-            100% {
-                transform: rotate(360deg); /* Finish the rotation */
-            }
+            0%, 40% { transform: rotate(0deg); }
+            60% { transform: rotate(180deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* Logo Styling with animation */
-        .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 5px 10px;
-            border-radius: 5px;
-            animation: rotateLogoWithPause 12s infinite cubic-bezier(0.25, 0.8, 0.25, 1); /* Continuous smooth rotation with ease */
-        }
-
-        /* Optional: for small screens, adjust size of logo */
         @media (max-width: 1024px) {
-            .logo img {
-                width: 100px;
-            }
+            .logo img { width: 100px; }
         }
 
         @media (max-width: 768px) {
-            .logo img {
-                width: 80px;
-            }
-
-            .top-right-text {
-                font-size: 8px;
-            }
-
-            .middle-text {
-                font-size: 12px;
-            }
-
-            .bottom-text {
-                font-size: 5px;
-            }
-
-            .bottom-right-image {
-                width: 60px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo img {
-                width: 60px;
-            }
-
-            .top-right-text {
-                font-size: 7px;
-            }
-
-            .middle-text {
-                font-size: 10px;
-            }
-
-            .bottom-text {
-                font-size: 4px;
-            }
-
-            .bottom-right-image {
-                width: 50px;
-            }
+            .logo img { width: 80px; }
+            .top-right-text { font-size: 8px; }
+            .middle-text { font-size: 12px; }
+            .bottom-text { font-size: 5px; }
+            .bottom-right-image { width: 60px; }
         }
     </style>
 </head>
 <body>
     <main class="main">
         <div class="container" id="container">
-            <!-- Logo -->
             <div class="logo">
-                <img src="JPEG/logo.png" alt="Stanbic Logo">
+                <img src="JPEG/logo.png" alt="Stanbic Logo" loading="eager" decoding="async">
             </div>
-
-            <!-- Top-Right Text -->
-            <div class="top-right-text">
-                #No1PrivateBank
-            </div>
-
-            <!-- Middle-Left Text with Typing Effect -->
+            <div class="top-right-text">#No1PrivateBank</div>
             <div class="middle-text">
-                <span class="typing-effect">IT'S MORE THAN BANKING,<br></span>
-                <span class="highlight-typing">IT'S GIVING<br>JOYFULLY.</span>
+                <span class="static-text">IT'S MORE THAN BANKING,</span>
+                <span class="typing-text" id="typing-text">IT'S GIVING JOYFULLY.</span>
             </div>
-
-            <div class="redirect">
-                stanbicbank.co.ke
-            </div>
-
-            <!-- Bottom-Left Text -->
+            <div class="redirect">stanbicbank.co.ke</div>
             <div class="bottom-text">
                 Stanbic Bank Kenya Limited is licensed and regulated by the Central Bank of Kenya
             </div>
-
-            <!-- Bottom-Right Image -->
-            <img src="JPEG/Pastedimage.webp" alt="Card Image" class="bottom-right-image">
+            <img src="JPEG/Pastedimage.webp" alt="Card Image" class="bottom-right-image" loading="lazy" decoding="async">
         </div>
     </main>
 
     <script>
-        const highlightTextElement = document.querySelector('.highlight-typing');
-        const textArray = ["IT'S INVESTING WISELY", "IT'S BANKING EASILY", "IT'S PLANNING WISELY"];
-        let currentTextIndex = 0;
+        // Previous image loading code remains the same
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        });
 
-        function changeText() {
-            highlightTextElement.textContent = textArray[currentTextIndex];
-            currentTextIndex = (currentTextIndex + 1) % textArray.length;
+        // Background images and preloading remains the same
+        const backgroundImages = [
+            'JPEG/ladyblue.webp',
+            'JPEG/Aeroplane.webp',
+            'JPEG/family.webp',
+            'JPEG/mortagage.webp',
+            'JPEG/Office.webp',
+            'JPEG/offshore.webp',
+            'JPEG/oldmoney.webp',
+            'JPEG/Onthemove2.webp',
+            'JPEG/Onthemove3.webp',
+            'JPEG/private.webp',
+            'JPEG/RM_Female.webp',
+            'JPEG/RM.webp',
+            'JPEG/shopping.webp'
+        ];
 
-            // Restart the animation
-            highlightTextElement.style.animation = 'none'; // Remove animation
-            highlightTextElement.offsetHeight; // Trigger reflow to restart animation
-            highlightTextElement.style.animation = ''; // Reapply animation
+        // Updated text animation
+        const typingTextElement = document.getElementById('typing-text');
+        const textArray = ["IT'S GIVING JOYFULLY.", "IT'S INVESTING WISELY.", "IT'S BANKING EASILY.", "IT'S PLANNING WISELY."];
+        let textIndex = 0;
+
+        function updateTypingText() {
+            typingTextElement.style.animation = 'none';
+            typingTextElement.offsetHeight; // Trigger reflow
+            typingTextElement.textContent = textArray[textIndex];
+            typingTextElement.style.animation = 'typing 3s steps(30, end), blink-caret 0.75s step-end infinite';
+            textIndex = (textIndex + 1) % textArray.length;
         }
 
-        // Change text every 12 seconds (after the typing and deleting cycle completes)
-        setInterval(changeText, 4000); // Adjust this interval if needed
+        // Initial text update
+        updateTypingText();
 
-        // Function to swap background image
-        const preloadImages = (images) => {
-    images.forEach((src) => {
-        const img = new Image();
-        img.src = src;
-    });
-};
+        // Update text every 4 seconds
+        setInterval(updateTypingText, 4000);
 
-const backgroundImages = [
-    'JPEG/ladyblue.webp',
-    'JPEG/Aeroplane.webp',
-    'JPEG/family.webp',
-    'JPEG/mortagage.webp',
-    'JPEG/Office.webp',
-    'JPEG/offshore.webp',
-    'JPEG/oldmoney.webp',
-    'JPEG/Onthemove2.webp',
-    'JPEG/Onthemove3.webp',
-    'JPEG/private.webp',
-    'JPEG/RM_Female.webp',
-    'JPEG/RM.webp',
-    'JPEG/shopping.webp'
-];
+        // Rest of the previous JavaScript code remains the same
+        const imageCache = new Map();
+        
+        const preloadImages = async (images) => {
+            const promises = images.map(src => {
+                if (!imageCache.has(src)) {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            imageCache.set(src, img);
+                            resolve(img);
+                        };
+                        img.onerror = reject;
+                        img.src = src;
+                    });
+                }
+                return Promise.resolve(imageCache.get(src));
+            });
+            
+            try {
+                await Promise.all(promises);
+            } catch (error) {
+                console.error('Error preloading images:', error);
+            }
+        };
 
-// Preload the images
-preloadImages(backgroundImages);
+        const initialImages = backgroundImages.slice(0, 3);
+        const remainingImages = backgroundImages.slice(3);
 
-// Function to swap background image
-function swapBackgroundImage() {
-    const container = document.getElementById('container');
-    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-    container.style.backgroundImage = `url(${backgroundImages[randomIndex]})`;
-}
-// Change background image every 10 seconds
-setInterval(swapBackgroundImage, 10000);  // Adjust this interval if 
+        const container = document.getElementById('container');
+        container.style.backgroundImage = `url(${backgroundImages[0]})`;
 
+        preloadImages(initialImages).then(() => {
+            requestIdleCallback(() => {
+                preloadImages(remainingImages);
+            });
+        });
+
+        let currentIndex = 0;
+        const swapBackgroundImage = () => {
+            currentIndex = (currentIndex + 1) % backgroundImages.length;
+            const nextImage = backgroundImages[currentIndex];
+            
+            if (imageCache.has(nextImage)) {
+                container.style.backgroundImage = `url(${nextImage})`;
+            }
+        };
+
+        setInterval(() => {
+            requestAnimationFrame(swapBackgroundImage);
+        }, 10000);
     </script>
 </body>
 </html>
