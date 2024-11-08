@@ -81,7 +81,7 @@
         /* Updated middle-text styles */
         .middle-text {
             position: absolute;
-            top: 30%;
+            top: 40%;
             left: 10px;
             font-size: 12px;
             font-weight: bold;
@@ -98,10 +98,11 @@
 
         .typing-text {
             color: #0066cc;
+            text-wrap: pretty;
             display: block;
             overflow: hidden;
             border-right: 2px solid #0066cc;
-            white-space: nowrap;
+            white-space: wrap;
             animation: typing 3s steps(30, end),
                        blink-caret 0.75s step-end infinite;
             margin: 0;
